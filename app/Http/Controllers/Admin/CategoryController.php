@@ -33,7 +33,11 @@ class CategoryController extends Controller
     	return redirect()->route('category.index')->with($notification);
 
     }
-
+    public function edit($id)
+    {
+        $data = DB::table('categories')->where('id',$id)->first();
+        return response()->json($data);
+    }
     public function update(Request $request)
     {
         $validated = $request->validate([
@@ -46,13 +50,8 @@ class CategoryController extends Controller
         DB::table('categories')->where('id',$request->id)->update($data);
         $notification=array('messege' => 'Category Inserted', 'alert-type' => 'success');
     	return redirect()->route('category.index')->with($notification);
+    }
 
-    }
-    public function edit($id)
-    {
-        $data = DB::table('categories')->where('id',$id)->first();
-        return response()->json($data);
-    }
     public function destroy($id)
     {
         // DB::table('categories')->where('id',$id)->delete();
