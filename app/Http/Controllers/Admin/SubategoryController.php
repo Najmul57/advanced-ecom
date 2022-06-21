@@ -21,7 +21,7 @@ class SubategoryController extends Controller
         $data = DB::table('subcategories')->leftJoin('categories','subcategories.category_id','categories.id')
                 ->select('subcategories.*','categories.category_name')->get();
         $categories = Category::all();
-        return view('admin.subcategory.index',compact('data','categories'));
+        return view('admin.category.subcategory.index',compact('data','categories'));
     }
     public function store(Request $request)
     {
@@ -41,7 +41,7 @@ class SubategoryController extends Controller
     {
         $categories = DB::table('categories')->get();
         $subcategories = Subcategory::find($id);
-        return view('admin.subcategory.edit',compact('categories','subcategories'));
+        return view('admin.category.subcategory.edit',compact('categories','subcategories'));
     }
     public function update(Request $request)
     {

@@ -64,9 +64,9 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.password.change') }}" class="nav-link">
                         <i class="nav-icon far fa-circle text-info"></i>
-                        <p>Informational</p>
+                        <p>Password Chagnge</p>
                     </a>
                 </li>
                 <li class="nav-item">

@@ -34,7 +34,7 @@ class BrandController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('admin.brand.index');
+        return view('admin.category.brand.index');
     }
     public function store(Request $request)
     {
@@ -59,7 +59,7 @@ class BrandController extends Controller
     public function edit($id)
     {
         $brands = DB::table('brands')->where('id', $id)->first();
-        return view('admin.brand.edit', compact('brands'));
+        return view('admin.category.brand.edit', compact('brands'));
     }
 
     public function update(Request $request)

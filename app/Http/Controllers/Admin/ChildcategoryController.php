@@ -40,7 +40,7 @@ class ChildcategoryController extends Controller
         }
         $categories = Category::all();
         $subcategories = DB::table('subcategories')->get();
-        return view('admin.childcategory.index',compact('categories','subcategories'));
+        return view('admin.category.childcategory.index',compact('categories','subcategories'));
     }
     public function store(Request $request)
     {
@@ -59,7 +59,7 @@ class ChildcategoryController extends Controller
     {
         $categories = Category::all();
         $childcategories = DB::table('childcategories')->where('id',$id)->first();
-        return view('admin.childcategory.edit',compact('categories','childcategories'));
+        return view('admin.category.childcategory.edit',compact('categories','childcategories'));
     }
     public function update(Request $request)
     {

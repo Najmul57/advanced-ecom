@@ -13,6 +13,8 @@ Route::get('/admin-login', [App\Http\Controllers\Auth\LoginController::class, 'a
 Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_admin'], function () {
     Route::get('/admin', [AdminController::class, 'admin'])->name('admin.home');
     Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout');
+    Route::get('/admin/password/change', [AdminController::class, 'passwordchange'])->name('admin.password.change');
+    Route::post('/admin/password/update', [AdminController::class, 'passwordUpdate'])->name('admin.password.update');
 
     //category
     Route::group(['prefix' => 'category'], function () {

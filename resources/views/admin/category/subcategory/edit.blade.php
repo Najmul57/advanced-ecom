@@ -9,7 +9,7 @@
                     <option value="{{ $category->id }}">{{ $category->category_name }}</option>
                 @endforeach
             </select>
-            <input type="text" name="id" value="{{ $subcategories->id }}">
+            <input type="hidden" name="id" value="{{ $subcategories->id }}">
         </div>
         <div class="form-group">
             <label for="category_name">Sub Categoroy Name</label>

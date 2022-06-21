@@ -17,7 +17,7 @@ class CategoryController extends Controller
     public function index()
     {
         $data=DB::table('categories')->get();
-        return view('admin.category.index',compact('data'));
+        return view('admin.category.category.index',compact('data'));
     }
     public function store(Request $request)
     {
