@@ -117,6 +117,7 @@
             });
         });
     </script>
+    
     <script>
         $(document).on("click", "#logout", function(e) {
             e.preventDefault();

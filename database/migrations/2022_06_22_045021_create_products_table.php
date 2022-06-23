@@ -23,6 +23,8 @@ class CreateProductsTable extends Migration
             $table->string('code');
             $table->string('unit')->nullable();
             $table->string('tags')->nullable();
+            $table->string('color')->nullable();
+            $table->string('size')->nullable();
             $table->string('video')->nullable();
             $table->string('purchase_price')->nullable();
             $table->string('selling_price')->nullable();

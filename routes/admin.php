@@ -4,7 +4,9 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChildcategoryController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\PickupController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SubategoryController;
 use App\Http\Controllers\Admin\WarehouseController;
@@ -52,6 +54,14 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
         Route::get('/edit/{id}', [BrandController::class, 'edit']);
         Route::post('/update', [BrandController::class, 'update'])->name('brand.update');
     });
+    //brand
+    Route::group(['prefix' => 'coupon'], function () {
+        Route::get('/', [CouponController::class, 'index'])->name('coupon.index');
+        Route::post('/store', [CouponController::class, 'store'])->name('coupon.store');
+        Route::get('/delete/{id}', [CouponController::class, 'destroy'])->name('coupon.delete');
+        Route::get('/edit/{id}', [CouponController::class, 'edit']);
+        Route::post('/update/{id}', [CouponController::class, 'update'])->name('coupon.update');
+    });
     //warehouse
     Route::group(['prefix' => 'warehouse'], function () {
         Route::get('/', [WarehouseController::class, 'index'])->name('warehouse.index');
@@ -85,6 +95,15 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
             Route::get('/delete/{id}', [PageController::class, 'destroy'])->name('page.delete');
             Route::get('/edit/{id}',[PageController::class,'edit'])->name('page.edit');
             Route::post('/update/{id}', [PageController::class, 'update'])->name('page.update');
+        });
+        // pickup-point
+        Route::group(['prefix' => 'pickup-point'], function () {
+            Route::get('/', [PickupController::class, 'index'])->name('pickup-point.index');
+            Route::get('/create', [PickupController::class, 'create'])->name('pickup-point.create');
+            Route::post('/store', [PickupController::class, 'store'])->name('pickup-point.store');
+            Route::get('/delete/{id}', [PickupController::class, 'destroy'])->name('pickup-point.delete');
+            Route::get('/edit/{id}',[PickupController::class,'edit'])->name('pickup-point.edit');
+            Route::post('/update/{id}', [PickupController::class, 'update'])->name('pickup-point.update');
         });
     });
 });
