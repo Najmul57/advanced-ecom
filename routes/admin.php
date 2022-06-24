@@ -7,9 +7,11 @@ use App\Http\Controllers\Admin\ChildcategoryController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PickupController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SubategoryController;
 use App\Http\Controllers\Admin\WarehouseController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 
@@ -29,6 +31,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
         Route::get('/edit/{id}', [CategoryController::class, 'edit']);
         Route::post('/update', [CategoryController::class, 'update'])->name('category.update');
     });
+
+    // global route
+    Route::get('/get-child-category/{id}',[CategoryController::class,'getChildCategory']);
 
     //subcategory
     Route::group(['prefix' => 'subcategory'], function () {
@@ -62,6 +67,25 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
         Route::get('/edit/{id}', [CouponController::class, 'edit']);
         Route::post('/update/{id}', [CouponController::class, 'update'])->name('coupon.update');
     });
+    //brand
+    Route::group(['prefix' => 'product'], function () {
+        Route::get('/', [ProductController::class, 'index'])->name('product.index');
+        Route::get('/create', [ProductController::class, 'create'])->name('product.create');
+        Route::post('/store', [ProductController::class, 'store'])->name('product.store');
+        Route::get('/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
+        // Route::get('/edit/{id}', [ProductController::class, 'edit']);
+        // Route::post('/update/{id}', [ProductController::class, 'update'])->name('product.update');
+
+        Route::get('not-featured/{id}',[ProductController::class,'notFeatured']);
+        Route::get('active-featured/{id}',[ProductController::class,'activeFeatured']);
+
+        Route::get('not-deal/{id}',[ProductController::class,'notDeal']);
+        Route::get('active-deal/{id}',[ProductController::class,'activeDeal']);
+
+        Route::get('not-status/{id}',[ProductController::class,'notstatus']);
+        Route::get('active-status/{id}',[ProductController::class,'activestatus']);
+
+    });
     //warehouse
     Route::group(['prefix' => 'warehouse'], function () {
         Route::get('/', [WarehouseController::class, 'index'])->name('warehouse.index');
@@ -93,7 +117,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
             Route::get('/create', [PageController::class, 'create'])->name('page.create');
             Route::post('/store', [PageController::class, 'store'])->name('page.store');
             Route::get('/delete/{id}', [PageController::class, 'destroy'])->name('page.delete');
-            Route::get('/edit/{id}',[PageController::class,'edit'])->name('page.edit');
+            Route::get('/edit/{id}', [PageController::class, 'edit'])->name('page.edit');
             Route::post('/update/{id}', [PageController::class, 'update'])->name('page.update');
         });
         // pickup-point
@@ -102,7 +126,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
             Route::get('/create', [PickupController::class, 'create'])->name('pickup-point.create');
             Route::post('/store', [PickupController::class, 'store'])->name('pickup-point.store');
             Route::get('/delete/{id}', [PickupController::class, 'destroy'])->name('pickup-point.delete');
-            Route::get('/edit/{id}',[PickupController::class,'edit'])->name('pickup-point.edit');
+            Route::get('/edit/{id}', [PickupController::class, 'edit'])->name('pickup-point.edit');
             Route::post('/update/{id}', [PickupController::class, 'update'])->name('pickup-point.update');
         });
     });

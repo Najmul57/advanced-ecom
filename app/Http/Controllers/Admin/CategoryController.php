@@ -61,4 +61,12 @@ class CategoryController extends Controller
         $notification=array('messege' => 'Category Deleted', 'alert-type' => 'success');
     	return redirect()->route('category.index')->with($notification);
     }
+
+    public function getChildCategory($id)
+    {
+        $data = DB::table('childcategories')->where('subcategory_id',$id)->get();
+        return response()->json($data);
+    }
+
+
 }

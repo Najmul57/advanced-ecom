@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('subcategory_id');
             $table->integer('childcategory_id')->nullable();
             $table->integer('brand_id')->nullable();
+            $table->integer('pickup_point_id')->nullable();
             $table->string('name');
             $table->string('code');
             $table->string('unit')->nullable();
