@@ -117,7 +117,7 @@
             });
         });
     </script>
-    
+
     <script>
         $(document).on("click", "#logout", function(e) {
             e.preventDefault();
@@ -159,6 +159,7 @@
             }
         @endif
     </script>
+
     <script>
         $('#summernote').summernote();
     </script>

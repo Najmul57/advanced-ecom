@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Pickup_point;
 use App\Models\Product;
+use App\Models\Warehouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -63,7 +67,7 @@ class ProductController extends Controller
                 ->addColumn('action', function ($row) {
                     $actionBtn = '
                     <a href="" class="btn btn-sm btn-success edit"><i class="fa fa-eye"></i></a>
-                    <a href="" class="btn btn-sm btn-primary edit"><i class="fa fa-edit"></i></a>
+                    <a href="' . route('product.edit', [$row->id]) . '" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                     <a href="' . route('product.delete', [$row->id]) . '"class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>';
                     return $actionBtn;
                 })
@@ -123,7 +127,7 @@ class ProductController extends Controller
         $data['video'] = $request->video;
         $data['featured'] = $request->featured;
         $data['today_deal'] = $request->today_deal;
-        // $data['product_slider']=$request->product_slider;
+        $data['product_slider']=$request->product_slider;
         $data['status'] = $request->status;
         // $data['trendy']=$request->trendy;
         $data['admin_id'] = Auth::id();
@@ -149,6 +153,16 @@ class ProductController extends Controller
         DB::table('products')->insert($data);
         $notification = array('messege' => 'Product Inserted!', 'alert-type' => 'success');
         return redirect()->back()->with($notification);
+    }
+
+    public function edit($id)
+    {
+        $product=DB::table('products')->where('id',$id)->first();
+        $category = Category::all();
+        $brand = Brand::all();
+        $pickup_point = Pickup_point::all();
+        $warehouse =Warehouse::all();
+        return view('admin.product.edit',compact('product','category','brand','pickup_point','warehouse'));
     }
 
     public function destroy($id)
