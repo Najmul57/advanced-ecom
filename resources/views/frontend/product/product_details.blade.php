@@ -66,7 +66,7 @@
                         </div>
                         <div>
                             @if ($sum_rating != null)
-                                @if (intval($sum_rating / $count_rating) == $count_rating)
+                                @if (intval($sum_rating / $count_rating) == 5)
                                     <span><i class="fa fa-star checked"></i></span>
                                     <span><i class="fa fa-star checked"></i></span>
                                     <span><i class="fa fa-star checked"></i></span>

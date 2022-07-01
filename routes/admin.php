@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\CampaignController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChildcategoryController;
 use App\Http\Controllers\Admin\CouponController;
@@ -59,7 +60,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
         Route::get('/edit/{id}', [BrandController::class, 'edit']);
         Route::post('/update', [BrandController::class, 'update'])->name('brand.update');
     });
-    //brand
+    //coupon
     Route::group(['prefix' => 'coupon'], function () {
         Route::get('/', [CouponController::class, 'index'])->name('coupon.index');
         Route::post('/store', [CouponController::class, 'store'])->name('coupon.store');
@@ -67,7 +68,15 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'is_a
         Route::get('/edit/{id}', [CouponController::class, 'edit']);
         Route::post('/update/{id}', [CouponController::class, 'update'])->name('coupon.update');
     });
-    //brand
+    //coupon
+    Route::group(['prefix' => 'campaign'], function () {
+        Route::get('/', [CampaignController::class, 'index'])->name('campaign.index');
+        Route::post('/store', [CampaignController::class, 'store'])->name('campaign.store');
+        Route::get('/delete/{id}', [CampaignController::class, 'destroy'])->name('campaign.delete');
+        Route::get('/edit/{id}', [CampaignController::class, 'edit']);
+        Route::post('/update/{id}', [CampaignController::class, 'update'])->name('campaign.update');
+    });
+    //product
     Route::group(['prefix' => 'product'], function () {
         Route::get('/', [ProductController::class, 'index'])->name('product.index');
         Route::get('/create', [ProductController::class, 'create'])->name('product.create');

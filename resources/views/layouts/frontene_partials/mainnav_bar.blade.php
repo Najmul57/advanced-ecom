@@ -1,6 +1,3 @@
-
-
-
 <nav class="main_nav">
     <div class="container">
         <div class="row">
@@ -18,27 +15,35 @@
 
                         <ul class="cat_menu">
                             @foreach ($category as $row)
-                            @php
-                                $subcategory = DB::table('subcategories')->where('category_id',$row->id)->get();
-                            @endphp
-                            <li class="hassubs">
-                                <a href="#">{{ $row->category_name }}<i class="fas fa-chevron-right"></i></a>
-                                <ul>
-                                    @foreach ($subcategory as $row)
-                                    @php
-                                        $childcategory = DB::table('childcategories')->where('subcategory_id',$row->id)->get();
-                                    @endphp
-                                    <li class="hassubs">
-                                        <a href="#">{{ $row->subcategory_name }}<i class="fas fa-chevron-right"></i></a>
-                                        <ul>
-                                            @foreach ($childcategory as $row)
-                                            <li><a href="#">{{ $row->childcategory_name }}<i class="fas fa-chevron-right"></i></a></li>
-                                            @endforeach
-                                        </ul>
-                                    </li>
-                                    @endforeach
-                                </ul>
-                            </li>
+                                @php
+                                    $subcategory = DB::table('subcategories')
+                                        ->where('category_id', $row->id)
+                                        ->get();
+                                @endphp
+                                <li class="hassubs">
+                                    <a href="#"><img src="{{ asset($row->icon) }}" height="18px"
+                                            width="18px"> {{ $row->category_name }}<i
+                                            class="fas fa-chevron-right"></i></a>
+                                    <ul>
+                                        @foreach ($subcategory as $row)
+                                            @php
+                                                $childcategory = DB::table('childcategories')
+                                                    ->where('subcategory_id', $row->id)
+                                                    ->get();
+                                            @endphp
+                                            <li class="hassubs">
+                                                <a href="#">{{ $row->subcategory_name }}<i
+                                                        class="fas fa-chevron-right"></i></a>
+                                                <ul>
+                                                    @foreach ($childcategory as $row)
+                                                        <li><a href="#">{{ $row->childcategory_name }}<i
+                                                                    class="fas fa-chevron-right"></i></a></li>
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </li>
                             @endforeach
                         </ul>
                     </div>
@@ -82,7 +87,8 @@
 
                     <div class="page_menu_search">
                         <form action="#">
-                            <input type="search" required="required" class="page_menu_search_input" placeholder="Search for products...">
+                            <input type="search" required="required" class="page_menu_search_input"
+                                placeholder="Search for products...">
                         </form>
                     </div>
                     <ul class="page_menu_nav">
@@ -144,12 +150,19 @@
                             </ul>
                         </li>
                         <li class="page_menu_item"><a href="blog.html">blog<i class="fa fa-angle-down"></i></a></li>
-                        <li class="page_menu_item"><a href="contact.html">contact<i class="fa fa-angle-down"></i></a></li>
+                        <li class="page_menu_item"><a href="contact.html">contact<i class="fa fa-angle-down"></i></a>
+                        </li>
                     </ul>
 
                     <div class="menu_contact">
-                        <div class="menu_contact_item"><div class="menu_contact_icon"><img src="images/phone_white.png" alt=""></div>+38 068 005 3570</div>
-                        <div class="menu_contact_item"><div class="menu_contact_icon"><img src="images/mail_white.png" alt=""></div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a></div>
+                        <div class="menu_contact_item">
+                            <div class="menu_contact_icon"><img src="images/phone_white.png" alt=""></div>+38
+                            068 005 3570
+                        </div>
+                        <div class="menu_contact_item">
+                            <div class="menu_contact_icon"><img src="images/mail_white.png" alt=""></div><a
+                                href="mailto:fastsales@gmail.com">fastsales@gmail.com</a>
+                        </div>
                     </div>
                 </div>
             </div>
