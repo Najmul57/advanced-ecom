@@ -36,11 +36,12 @@
                 <!-- Images -->
                 <div class="col-lg-1 order-lg-1 order-2">
                     <ul class="image_list">
-                        @foreach ($images as $image)
-                            <li data-image="{{ asset('files/products/' . $image) }}"><img
-                                    src="{{ asset('files/products/' . $image) }}" alt=""></li>
-                        @endforeach
-
+                        @isset($images)
+                            @foreach ($images as $image)
+                                <li data-image="{{ asset('files/products/' . $image) }}"><img
+                                        src="{{ asset('files/products/' . $image) }}" alt=""></li>
+                            @endforeach
+                        @endisset
                     </ul>
                 </div>
 
@@ -108,7 +109,7 @@
                             </div>
                         @endif
                         <div class="order_info d-flex flex-row">
-                            <form action="#">
+                            <form>
                                 <div class="row">
                                     @isset($product->size)
                                         <div class="col-6">
@@ -170,7 +171,11 @@
                                 </div>
                                 <div class="button_container">
                                     <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                        <button type="submit" class="btn btn-primary mr-2">Add to cart</button>
+                                        @if ($product->stock_quantity < 1)
+                                            <button type="submit" class="btn btn-danger mr-2">Stock Out</button>
+                                        @else
+                                            <button type="submit" class="btn btn-primary mr-2"> Add to cart</button>
+                                        @endif
                                         <a href="{{ route('add.wishlist', $product->id) }}" type="button"
                                             class="btn btn-primary">Wishlist</a>
                                     </div>
@@ -436,90 +441,4 @@
         </div>
     </div>
 
-    <!-- Brands -->
-
-    <div class="brands">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="brands_slider_container">
-
-                        <!-- Brands Slider -->
-
-                        <div class="owl-carousel owl-theme brands_slider">
-
-                            <div class="owl-item">
-                                <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="{{ asset('frontend') }}/images/brands_1.jpg" alt=""></div>
-                            </div>
-                            <div class="owl-item">
-                                <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="{{ asset('frontend') }}/images/brands_2.jpg" alt=""></div>
-                            </div>
-                            <div class="owl-item">
-                                <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="{{ asset('frontend') }}/images/brands_3.jpg" alt=""></div>
-                            </div>
-                            <div class="owl-item">
-                                <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="{{ asset('frontend') }}/images/brands_4.jpg" alt=""></div>
-                            </div>
-                            <div class="owl-item">
-                                <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="{{ asset('frontend') }}/images/brands_5.jpg" alt=""></div>
-                            </div>
-                            <div class="owl-item">
-                                <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="{{ asset('frontend') }}/images/brands_6.jpg" alt=""></div>
-                            </div>
-                            <div class="owl-item">
-                                <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="{{ asset('frontend') }}/images/brands_7.jpg" alt=""></div>
-                            </div>
-                            <div class="owl-item">
-                                <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="{{ asset('frontend') }}/images/brands_8.jpg" alt=""></div>
-                            </div>
-
-                        </div>
-
-                        <!-- Brands Slider Navigation -->
-                        <div class="brands_nav brands_prev"><i class="fas fa-chevron-left"></i></div>
-                        <div class="brands_nav brands_next"><i class="fas fa-chevron-right"></i></div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Newsletter -->
-
-    <div class="newsletter">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div
-                        class="newsletter_container d-flex flex-lg-row flex-column align-items-lg-center align-items-center justify-content-lg-start justify-content-center">
-                        <div class="newsletter_title_container">
-                            <div class="newsletter_icon"><img src="{{ asset('frontend') }}/images/send.png"
-                                    alt=""></div>
-                            <div class="newsletter_title">Sign up for Newsletter</div>
-                            <div class="newsletter_text">
-                                <p>...and receive %20 coupon for first shopping.</p>
-                            </div>
-                        </div>
-                        <div class="newsletter_content clearfix">
-                            <form action="#" class="newsletter_form">
-                                <input type="email" class="newsletter_input" required="required"
-                                    placeholder="Enter your email address">
-                                <button class="newsletter_button">Subscribe</button>
-                            </form>
-                            <div class="newsletter_unsubscribe_link"><a href="#">unsubscribe</a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection

@@ -1,15 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-    .brands_item a {
-    text-align: center;
-}
-</style>
+    <style>
+        .brands_item a {
+            text-align: center;
+        }
+    </style>
     @include('layouts.frontene_partials.mainnav_bar')
 
     <!-- Banner -->
-
     <div class="banner">
         <div class="banner_background" style="background-image:url({{ asset('frontend') }}/images/banner_background.jpg)">
         </div>
@@ -35,26 +34,23 @@
             </div>
         </div>
     </div>
-
     <!-- Brands -->
 
     <div class="brands">
         <div class="container">
             <div class="row">
                 @foreach ($brands as $brand)
-                <div class="col-lg-1 border p-2">
-                    <div class="owl-item">
-                        <div class="brands_item d-flex flex-column justify-content-center">
-                            <a href="#"><img src="{{ asset($brand->brand_logo) }}" height="50%" width="50%"
-                                    alt="{{ $brand->brand_name }}"></a>
+                    <div class="col-lg-1 border p-2">
+                        <div class="owl-item">
+                            <div class="brands_item d-flex flex-column justify-content-center">
+                                <a href="#"><img src="{{ asset($brand->brand_logo) }}" height="50%"
+                                        width="50%" alt="{{ $brand->brand_name }}"></a>
+                            </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
             </div>
         </div>
-    </div>
-    </div>
     </div>
 
     <!-- Deals of the week -->
@@ -63,151 +59,70 @@
         <div class="container">
             <div class="row">
                 <div class="col d-flex flex-lg-row flex-column align-items-center justify-content-start">
-
                     <!-- Deals -->
-
                     <div class="deals">
                         <div class="deals_title">Deals of the Week</div>
                         <div class="deals_slider_container">
-
                             <!-- Deals Slider -->
                             <div class="owl-carousel owl-theme deals_slider">
-
-                                <!-- Deals Item -->
-                                <div class="owl-item deals_item">
-                                    <div class="deals_image"><img src=" {{ asset('frontend') }}/images/deals.png"
-                                            alt=""></div>
-                                    <div class="deals_content">
-                                        <div class="deals_info_line d-flex flex-row justify-content-start">
-                                            <div class="deals_item_category"><a href="#">Headphones</a></div>
-                                            <div class="deals_item_price_a ml-auto">$300</div>
+                                @foreach ($today_deal as $row)
+                                    <!-- Deals Item -->
+                                    <div class="owl-item deals_item">
+                                        <div class="deals_image"><img
+                                                src=" {{ asset('files/products/' . $row->thumbnail) }}" alt="">
                                         </div>
-                                        <div class="deals_info_line d-flex flex-row justify-content-start">
-                                            <div class="deals_item_name">Beoplay H7</div>
-                                            <div class="deals_item_price ml-auto">$225</div>
-                                        </div>
-                                        <div class="available">
-                                            <div class="available_line d-flex flex-row justify-content-start">
-                                                <div class="available_title">Available: <span>6</span></div>
-                                                <div class="sold_title ml-auto">Already sold: <span>28</span></div>
-                                            </div>
-                                            <div class="available_bar"><span style="width:17%"></span></div>
-                                        </div>
-                                        <div class="deals_timer d-flex flex-row align-items-center justify-content-start">
-                                            <div class="deals_timer_title_container">
-                                                <div class="deals_timer_title">Hurry Up</div>
-                                                <div class="deals_timer_subtitle">Offer ends in:</div>
-                                            </div>
-                                            <div class="deals_timer_content ml-auto">
-                                                <div class="deals_timer_box clearfix" data-target-time="">
-                                                    <div class="deals_timer_unit">
-                                                        <div id="deals_timer1_hr" class="deals_timer_hr"></div>
-                                                        <span>hours</span>
+                                        <div class="deals_content">
+                                            <div class="deals_info_line d-flex flex-row justify-content-start">
+                                                <div class="deals_item_category"><a
+                                                        href="#">{{ $row->category->category_name }}</a></div>
+                                                @if ($bannerproduct->discount_price == null)
+                                                    <div class="deals_item_price_a ml-auto">
+                                                        {{ $setting->currency }}{{ $bannerproduct->selling_price }}
                                                     </div>
-                                                    <div class="deals_timer_unit">
-                                                        <div id="deals_timer1_min" class="deals_timer_min"></div>
-                                                        <span>mins</span>
+                                                @else
+                                                    <div class="deals_item_price_a ml-auto">
+                                                        <span>{{ $setting->currency }}{{ $bannerproduct->selling_price }}</span>
                                                     </div>
-                                                    <div class="deals_timer_unit">
-                                                        <div id="deals_timer1_sec" class="deals_timer_sec"></div>
-                                                        <span>secs</span>
+                                                @endif
+                                            </div>
+                                            <div class="deals_info_line d-flex flex-row justify-content-start">
+                                                <div class="deals_item_name">{{ $row->name }}</div>
+                                                <div class="deals_item_price ml-auto">$225</div>
+                                            </div>
+                                            <div class="available">
+                                                <div class="available_line d-flex flex-row justify-content-start">
+                                                    <div class="available_title">Available:
+                                                        <span>{{ $row->stock_quantity }}</span></div>
+                                                    <div class="sold_title ml-auto">Already sold: <span>28</span></div>
+                                                </div>
+                                                <div class="available_bar"><span style="width:17%"></span></div>
+                                            </div>
+                                            <div
+                                                class="deals_timer d-flex flex-row align-items-center justify-content-start">
+                                                <div class="deals_timer_title_container">
+                                                    <div class="deals_timer_title">Hurry Up</div>
+                                                    <div class="deals_timer_subtitle">Offer ends in:</div>
+                                                </div>
+                                                <div class="deals_timer_content ml-auto">
+                                                    <div class="deals_timer_box clearfix" data-target-time="">
+                                                        <div class="deals_timer_unit">
+                                                            <div id="deals_timer1_hr" class="deals_timer_hr"></div>
+                                                            <span>hours</span>
+                                                        </div>
+                                                        <div class="deals_timer_unit">
+                                                            <div id="deals_timer1_min" class="deals_timer_min"></div>
+                                                            <span>mins</span>
+                                                        </div>
+                                                        <div class="deals_timer_unit">
+                                                            <div id="deals_timer1_sec" class="deals_timer_sec"></div>
+                                                            <span>secs</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                <!-- Deals Item -->
-                                <div class="owl-item deals_item">
-                                    <div class="deals_image"><img src=" {{ asset('frontend') }}/images/deals.png"
-                                            alt=""></div>
-                                    <div class="deals_content">
-                                        <div class="deals_info_line d-flex flex-row justify-content-start">
-                                            <div class="deals_item_category"><a href="#">Headphones</a></div>
-                                            <div class="deals_item_price_a ml-auto">$300</div>
-                                        </div>
-                                        <div class="deals_info_line d-flex flex-row justify-content-start">
-                                            <div class="deals_item_name">Beoplay H7</div>
-                                            <div class="deals_item_price ml-auto">$225</div>
-                                        </div>
-                                        <div class="available">
-                                            <div class="available_line d-flex flex-row justify-content-start">
-                                                <div class="available_title">Available: <span>6</span></div>
-                                                <div class="sold_title ml-auto">Already sold: <span>28</span></div>
-                                            </div>
-                                            <div class="available_bar"><span style="width:17%"></span></div>
-                                        </div>
-                                        <div class="deals_timer d-flex flex-row align-items-center justify-content-start">
-                                            <div class="deals_timer_title_container">
-                                                <div class="deals_timer_title">Hurry Up</div>
-                                                <div class="deals_timer_subtitle">Offer ends in:</div>
-                                            </div>
-                                            <div class="deals_timer_content ml-auto">
-                                                <div class="deals_timer_box clearfix" data-target-time="">
-                                                    <div class="deals_timer_unit">
-                                                        <div id="deals_timer2_hr" class="deals_timer_hr"></div>
-                                                        <span>hours</span>
-                                                    </div>
-                                                    <div class="deals_timer_unit">
-                                                        <div id="deals_timer2_min" class="deals_timer_min"></div>
-                                                        <span>mins</span>
-                                                    </div>
-                                                    <div class="deals_timer_unit">
-                                                        <div id="deals_timer2_sec" class="deals_timer_sec"></div>
-                                                        <span>secs</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Deals Item -->
-                                <div class="owl-item deals_item">
-                                    <div class="deals_image"><img src=" {{ asset('frontend') }}/images/deals.png"
-                                            alt=""></div>
-                                    <div class="deals_content">
-                                        <div class="deals_info_line d-flex flex-row justify-content-start">
-                                            <div class="deals_item_category"><a href="#">Headphones</a></div>
-                                            <div class="deals_item_price_a ml-auto">$300</div>
-                                        </div>
-                                        <div class="deals_info_line d-flex flex-row justify-content-start">
-                                            <div class="deals_item_name">Beoplay H7</div>
-                                            <div class="deals_item_price ml-auto">$225</div>
-                                        </div>
-                                        <div class="available">
-                                            <div class="available_line d-flex flex-row justify-content-start">
-                                                <div class="available_title">Available: <span>6</span></div>
-                                                <div class="sold_title ml-auto">Already sold: <span>28</span></div>
-                                            </div>
-                                            <div class="available_bar"><span style="width:17%"></span></div>
-                                        </div>
-                                        <div class="deals_timer d-flex flex-row align-items-center justify-content-start">
-                                            <div class="deals_timer_title_container">
-                                                <div class="deals_timer_title">Hurry Up</div>
-                                                <div class="deals_timer_subtitle">Offer ends in:</div>
-                                            </div>
-                                            <div class="deals_timer_content ml-auto">
-                                                <div class="deals_timer_box clearfix" data-target-time="">
-                                                    <div class="deals_timer_unit">
-                                                        <div id="deals_timer3_hr" class="deals_timer_hr"></div>
-                                                        <span>hours</span>
-                                                    </div>
-                                                    <div class="deals_timer_unit">
-                                                        <div id="deals_timer3_min" class="deals_timer_min"></div>
-                                                        <span>mins</span>
-                                                    </div>
-                                                    <div class="deals_timer_unit">
-                                                        <div id="deals_timer3_sec" class="deals_timer_sec"></div>
-                                                        <span>secs</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                @endforeach
                             </div>
 
                         </div>
@@ -263,11 +178,12 @@
                                                     </div>
                                                     <div class="product_extras">
                                                         <div class="product_color">
-                                                            <a href="#" id="{{ $item->id }}"
-                                                                class="quick_view" data-toggle="modal"
-                                                                data-target="#featured">Quick View</a>
+                                                            <a href="#" id="{{ $item->id }}" class="quick_view"
+                                                                data-toggle="modal" data-target="#featured">Quick View</a>
                                                         </div>
-                                                        <button class="product_cart_button">Add to Cart</button>
+                                                        <button id="{{ $item->id }}"
+                                                            class="product_cart_button quick_view" data-toggle="modal"
+                                                            data-target="#featured">Add to Cart</button>
                                                     </div>
                                                 </div>
                                                 <div class="product_fav">
@@ -322,7 +238,9 @@
                                                                 class="quick_view" data-toggle="modal"
                                                                 data-target="#featured">Quick View</a>
                                                         </div>
-                                                        <button class="product_cart_button">Add to Cart</button>
+                                                        <button id="{{ $item->id }}" data-toggle="modal"
+                                                            data-target="#featured"
+                                                            class="product_cart_button quick_view">Add to Cart</button>
                                                     </div>
                                                 </div>
                                                 <div class="product_fav">
@@ -370,7 +288,9 @@
                                                         <input type="radio" name="product_color"
                                                             style="background:#999999">
                                                     </div>
-                                                    <button class="product_cart_button">Add to Cart</button>
+                                                    <button id="{{ $item->id }}"
+                                                        class="product_cart_button quick_view" data-toggle="modal"
+                                                        data-target="#featured">Add to Cart</button>
                                                 </div>
                                             </div>
                                             <div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -405,7 +325,9 @@
                                                         <input type="radio" name="product_color"
                                                             style="background:#999999">
                                                     </div>
-                                                    <button class="product_cart_button active">Add to Cart</button>
+                                                    <button id="{{ $item->id }}"
+                                                        class="product_cart_button quick_view" data-toggle="modal"
+                                                        data-target="#featured">Add to Cart</button>
                                                 </div>
                                             </div>
                                             <div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -440,7 +362,9 @@
                                                         <input type="radio" name="product_color"
                                                             style="background:#999999">
                                                     </div>
-                                                    <button class="product_cart_button">Add to Cart</button>
+                                                    <button id="{{ $item->id }}"
+                                                        class="product_cart_button quick_view" data-toggle="modal"
+                                                        data-target="#featured">Add to Cart</button>
                                                 </div>
                                             </div>
                                             <div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -475,7 +399,9 @@
                                                         <input type="radio" name="product_color"
                                                             style="background:#999999">
                                                     </div>
-                                                    <button class="product_cart_button">Add to Cart</button>
+                                                    <button id="{{ $item->id }}"
+                                                        class="product_cart_button quick_view" data-toggle="modal"
+                                                        data-target="#featured">Add to Cart</button>
                                                 </div>
                                             </div>
                                             <div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -510,7 +436,9 @@
                                                         <input type="radio" name="product_color"
                                                             style="background:#999999">
                                                     </div>
-                                                    <button class="product_cart_button">Add to Cart</button>
+                                                    <button id="{{ $item->id }}" data-toggle="modal"
+                                                        data-target="#featured"
+                                                        class="product_cart_button quick_view ">Add to Cart</button>
                                                 </div>
                                             </div>
                                             <div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -545,7 +473,9 @@
                                                         <input type="radio" name="product_color"
                                                             style="background:#999999">
                                                     </div>
-                                                    <button class="product_cart_button">Add to Cart</button>
+                                                    <button id="{{ $item->id }}" data-toggle="modal"
+                                                        data-target="#featured"
+                                                        class="product_cart_button quick_view ">Add to Cart</button>
                                                 </div>
                                             </div>
                                             <div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -580,7 +510,9 @@
                                                         <input type="radio" name="product_color"
                                                             style="background:#999999">
                                                     </div>
-                                                    <button class="product_cart_button">Add to Cart</button>
+                                                    <button id="{{ $item->id }}" data-toggle="modal"
+                                                        data-target="#featured"
+                                                        class="product_cart_button quick_view ">Add to Cart</button>
                                                 </div>
                                             </div>
                                             <div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -615,7 +547,9 @@
                                                         <input type="radio" name="product_color"
                                                             style="background:#999999">
                                                     </div>
-                                                    <button class="product_cart_button">Add to Cart</button>
+                                                    <button id="{{ $item->id }}" data-toggle="modal"
+                                                        data-target="#featured"
+                                                        class="product_cart_button quick_view ">Add to Cart</button>
                                                 </div>
                                             </div>
                                             <div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -650,7 +584,9 @@
                                                         <input type="radio" name="product_color"
                                                             style="background:#999999">
                                                     </div>
-                                                    <button class="product_cart_button">Add to Cart</button>
+                                                    <button id="{{ $item->id }}" data-toggle="modal"
+                                                        data-target="#featured"
+                                                        class="product_cart_button quick_view ">Add to Cart</button>
                                                 </div>
                                             </div>
                                             <div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -685,7 +621,9 @@
                                                         <input type="radio" name="product_color"
                                                             style="background:#999999">
                                                     </div>
-                                                    <button class="product_cart_button">Add to Cart</button>
+                                                    <button id="{{ $item->id }}" data-toggle="modal"
+                                                        data-target="#featured"
+                                                        class="product_cart_button quick_view ">Add to Cart</button>
                                                 </div>
                                             </div>
                                             <div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -720,7 +658,9 @@
                                                         <input type="radio" name="product_color"
                                                             style="background:#999999">
                                                     </div>
-                                                    <button class="product_cart_button">Add to Cart</button>
+                                                    <button id="{{ $item->id }}" data-toggle="modal"
+                                                        data-target="#featured"
+                                                        class="product_cart_button quick_view ">Add to Cart</button>
                                                 </div>
                                             </div>
                                             <div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -755,7 +695,9 @@
                                                         <input type="radio" name="product_color"
                                                             style="background:#999999">
                                                     </div>
-                                                    <button class="product_cart_button">Add to Cart</button>
+                                                    <button id="{{ $item->id }}" data-toggle="modal"
+                                                        data-target="#featured"
+                                                        class="product_cart_button quick_view ">Add to Cart</button>
                                                 </div>
                                             </div>
                                             <div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -790,7 +732,9 @@
                                                         <input type="radio" name="product_color"
                                                             style="background:#999999">
                                                     </div>
-                                                    <button class="product_cart_button">Add to Cart</button>
+                                                    <button id="{{ $item->id }}" data-toggle="modal"
+                                                        data-target="#featured"
+                                                        class="product_cart_button quick_view ">Add to Cart</button>
                                                 </div>
                                             </div>
                                             <div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -825,7 +769,9 @@
                                                         <input type="radio" name="product_color"
                                                             style="background:#999999">
                                                     </div>
-                                                    <button class="product_cart_button">Add to Cart</button>
+                                                    <button id="{{ $item->id }}" data-toggle="modal"
+                                                        data-target="#featured"
+                                                        class="product_cart_button quick_view ">Add to Cart</button>
                                                 </div>
                                             </div>
                                             <div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -860,7 +806,9 @@
                                                         <input type="radio" name="product_color"
                                                             style="background:#999999">
                                                     </div>
-                                                    <button class="product_cart_button">Add to Cart</button>
+                                                    <button id="{{ $item->id }}" data-toggle="modal"
+                                                        data-target="#featured"
+                                                        class="product_cart_button quick_view ">Add to Cart</button>
                                                 </div>
                                             </div>
                                             <div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -895,7 +843,9 @@
                                                         <input type="radio" name="product_color"
                                                             style="background:#999999">
                                                     </div>
-                                                    <button class="product_cart_button">Add to Cart</button>
+                                                    <button id="{{ $item->id }}" data-toggle="modal"
+                                                        data-target="#featured"
+                                                        class="product_cart_button quick_view ">Add to Cart</button>
                                                 </div>
                                             </div>
                                             <div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -934,13 +884,10 @@
                         <div class="popular_categories_link"><a href="#">full catalog</a></div>
                     </div>
                 </div>
-
                 <!-- Popular Categories Slider -->
-
                 <div class="col-lg-9">
                     <div class="popular_categories_slider_container">
                         <div class="owl-carousel owl-theme popular_categories_slider">
-
                             <!-- Popular Categories Item -->
                             @foreach ($category as $row)
                                 <div class="owl-item">
@@ -954,7 +901,6 @@
                                     </div>
                                 </div>
                             @endforeach
-
                         </div>
                     </div>
                 </div>
@@ -1095,7 +1041,6 @@
                                     <!-- Product Panel -->
                                     <div class="product_panel panel active">
                                         <div class="arrivals_slider slider">
-
                                             @foreach ($cat_product as $row)
                                                 <!-- Slider Item -->
                                                 <div class="arrivals_slider_item">
@@ -1144,7 +1089,6 @@
                                                     </div>
                                                 </div>
                                             @endforeach
-
                                         </div>
                                         <div class="arrivals_slider_dots_cover"></div>
                                     </div>
@@ -1162,11 +1106,8 @@
     <div class="adverts">
         <div class="container">
             <div class="row">
-
                 <div class="col-lg-4 advert_col">
-
                     <!-- Advert Item -->
-
                     <div class="advert d-flex flex-row align-items-center justify-content-start">
                         <div class="advert_content">
                             <div class="advert_title"><a href="#">Trends 2022</a></div>
@@ -1178,11 +1119,8 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-lg-4 advert_col">
-
                     <!-- Advert Item -->
-
                     <div class="advert d-flex flex-row align-items-center justify-content-start">
                         <div class="advert_content">
                             <div class="advert_subtitle">Trends 2018</div>
@@ -1195,11 +1133,8 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-lg-4 advert_col">
-
                     <!-- Advert Item -->
-
                     <div class="advert d-flex flex-row align-items-center justify-content-start">
                         <div class="advert_content">
                             <div class="advert_title"><a href="#">Trends 2018</a></div>
@@ -1211,7 +1146,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -1481,14 +1415,16 @@
                                 <div class="owl-item">
                                     <div
                                         class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                                        <div class="viewed_image"><img src="{{ 'files/products/' . $row->thumbnail }}">
+                                        <div class="viewed_image"><img
+                                                src="{{ 'files/products/' . $row->thumbnail }}">
                                         </div>
                                         <div
                                             class="viewed_content
                                                 text-center">
                                             @if ($bannerproduct->discount_price == null)
                                                 <div class="banner_price">
-                                                    {{ $setting->currency }}{{ $bannerproduct->selling_price }}</div>
+                                                    {{ $setting->currency }}{{ $bannerproduct->selling_price }}
+                                                </div>
                                             @else
                                                 <div class="banner_price">
                                                     <span>{{ $setting->currency }}{{ $bannerproduct->selling_price }}</span>{{ $setting->currency }}{{ $bannerproduct->discount_price }}
@@ -1511,12 +1447,6 @@
         </div>
     </div>
 
-
-
-    <!-- Newsletter -->
-
-    <!-- Characteristics -->
-
     <div class="characteristics">
         <div class="container">
             <div class="row">
@@ -1536,7 +1466,6 @@
 
                 <!-- Char. Item -->
                 <div class="col-lg-3 col-md-6 char_col">
-
                     <div class="char_item d-flex flex-row align-items-center justify-content-start">
                         <div class="char_icon"><img src="{{ asset('frontend') }}/images/char_2.png" alt="">
                         </div>
@@ -1549,7 +1478,6 @@
 
                 <!-- Char. Item -->
                 <div class="col-lg-3 col-md-6 char_col">
-
                     <div class="char_item d-flex flex-row align-items-center justify-content-start">
                         <div class="char_icon"><img src="{{ asset('frontend') }}/images/char_3.png" alt="">
                         </div>
@@ -1575,7 +1503,6 @@
             </div>
         </div>
     </div>
-
     <div class="newsletter">
         <div class="container">
             <div class="row">
@@ -1622,8 +1549,6 @@
             </div>
         </div>
     </div>
-
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>

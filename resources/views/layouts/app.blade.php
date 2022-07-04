@@ -120,7 +120,8 @@
                                                 </ul>
                                             </li>
                                             <li>
-                                                <a href="{{ route('register') }}">Register<i class="fas fa-chevron-down"></i></a>
+                                                <a href="{{ route('register') }}">Register<i
+                                                        class="fas fa-chevron-down"></i></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -176,7 +177,9 @@
 
                         <!-- Wishlist -->
                         @php
-                            $wishlist=DB::table('wishlists')->where('user_id',Auth::id())->count();
+                            $wishlist = DB::table('wishlists')
+                                ->where('user_id', Auth::id())
+                                ->count();
                         @endphp
                         <div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
                             <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
@@ -192,12 +195,12 @@
                                 <div class="cart">
                                     <div class="cart_container d-flex flex-row align-items-center justify-content-end">
                                         <div class="cart_icon">
-                                            <img src="images/cart.png" alt="">
-                                            <div class="cart_count"><span>10</span></div>
+                                            <img src="{{ asset('frontend') }}/images/cart.png" alt="">
+                                            <div class="cart_qty"><span></span></div>
                                         </div>
                                         <div class="cart_content">
                                             <div class="cart_text"><a href="#">Cart</a></div>
-                                            <div class="cart_price">$85</div>
+                                            <div class="cart_price"><span class="cart_total"></span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -327,6 +330,7 @@
     </div>
 
     <script src="{{ asset('frontend') }}/js/jquery-3.3.1.min.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
     <script src="{{ asset('frontend') }}/styles/bootstrap4/popper.js"></script>
     <script src="{{ asset('frontend') }}/styles/bootstrap4/bootstrap.min.js"></script>
     <script src="{{ asset('frontend') }}/plugins/greensock/TweenMax.min.js"></script>
@@ -340,6 +344,28 @@
     <script src="{{ asset('backend/plugins/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('frontend') }}/js/custom.js"></script>
     <script src="{{ asset('frontend') }}/js/product_custom.js"></script>
+
+
+    <script>
+        function cart() {
+            $.ajax({
+                type: 'get',
+                url: '{{ route('all.cart') }}',
+                dataType: 'json',
+                success: function(data) {
+                    $('.cart_qty').empty('');
+                    $('.cart_total').empty('');
+                    $('.cart_qty').append(data.cart_qty);
+                    $('.cart_total').append(data.cart_total);
+                }
+            })
+        }
+        $(document).ready(function(event) {
+            cart();
+        })
+    </script>
+
+
     <script type="text/javascript">
         @if (Session::has('messege'))
             var type = "{{ Session::get('alert-type', 'info') }}"

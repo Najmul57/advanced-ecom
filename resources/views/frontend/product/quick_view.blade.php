@@ -46,11 +46,11 @@ $sizes = explode(',', $product->size);
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-4">
-                    <div class="">
-                        <img src="{{ asset('files/products/' . $product->thumbnail) }}"
-                            alt="" width="100%" height="100px">
-                    </div>
-                  </div>
+                <div class="">
+                    <img src="{{ asset('files/products/' . $product->thumbnail) }}" alt="" width="100%"
+                        height="100px">
+                </div>
+            </div>
             <div class="col-lg-8 ">
                 <h3>{{ $product->name }}</h3>
                 <p>{{ $product->category->category_name }} > {{ $product->subcategory->subcategory_name }}</p>
@@ -75,9 +75,8 @@ $sizes = explode(',', $product->size);
 
                 <br>
                 <div class="order_info d-flex flex-row">
-                    {{-- <form action="{{ route('add.to.cart.quickview') }}" method="post" id="add_cart_form">
-                        @csrf --}}
-                        {{-- cart add details --}}
+                    <form action="{{ route('add.to.cart.quickview') }}" method="post" id="add_cart_form">
+                        @csrf
                         <input type="hidden" name="id" value="{{ $product->id }}">
                         @if ($product->discount_price == null)
                             <input type="hidden" name="price" value="{{ $product->selling_price }}">
@@ -122,48 +121,47 @@ $sizes = explode(',', $product->size);
                                     @if ($product->stock_quantity < 1)
                                         <span class="text-danger">Stock Out</span>
                                     @else
-                                        <button class="btn btn-sm btn-outline-info"  type="submit"
+                                        <button class="btn btn-sm btn-outline-info" type="submit"
                                             style="margin-top:120px">
                                             <span class="loading d-none">....</span> Add to cart</button>
                                     @endif
                                 </div>
                             </div>
                         </div>
-
-                    {{-- </form> --}}
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
- <script type="text/javascript">
+<script>
     $('.loader').ready(function() {
-      setTimeout(function() {
-        $('.product_view').removeClass("d-none");
-        $('.loader').css("display", "none");
-      }, 500);
+        setTimeout(function() {
+            $('.product_view').removeClass("d-none");
+            $('.loader').css("display", "none");
+        }, 500);
     });
-    </script
+</script>
 
- {{-- <script type="text/javascript">
-      //store coupon ajax call
-      $('#add_cart_form').submit(function(e){
+
+<script>
+    $('#add_cart_form').submit(function(e) {
         e.preventDefault();
         $('.loading').removeClass('d-none');
         var url = $(this).attr('action');
-        var request =$(this).serialize();
+        var request = $(this).serialize();
         $.ajax({
-          url:url,
-          type:'post',
-          async:false,
-          data:request,
-          success:function(data){
-            toastr.success(data);
-            $('#add_cart_form')[0].reset();
-            $('.loading').addClass('d-none');
-            cart();
-          }
+            url: url,
+            type: 'post',
+            async: false,
+            data: request,
+            success: function(data) {
+                toastr.success(data);
+                $('#add_cart_form')[0].reset();
+                $('.loading').addClass('d-none');
+                cart();
+            }
         });
-      });
-    </script> --}}
+    });
+</script>

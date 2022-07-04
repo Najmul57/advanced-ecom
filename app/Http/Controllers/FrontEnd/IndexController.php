@@ -17,11 +17,12 @@ class IndexController extends Controller
         $brands = DB::table('brands')->where('front_page',1)->limit(24)->get();
         $bannerproduct = Product::where('status', 1)->where('product_slider', 1)->latest()->first();
         $featured = Product::where('status', 1)->where('featured', 1)->orderBy('id', 'desc')->limit(5)->get();
+        $today_deal = Product::where('status', 1)->where('today_deal', 1)->orderBy('id', 'desc')->limit(5)->get();
         $popular_product = Product::where('status', 1)->orderBy('product_views', 'desc')->limit(5)->get();
         $random_product = Product::where('status', 1)->inRandomOrder()->limit(12)->get();
         $trendy_product = Product::where('status', 1)->where('trendy', 1)->orderBy('id', 'desc')->limit(5)->get();
         $home_category = DB::table('categories')->where('home_page', 1)->orderBy('category_name', 'ASC')->get();
-        return view('frontend.index', compact('category', 'bannerproduct', 'featured', 'popular_product', 'trendy_product', 'home_category', 'brands', 'random_product'));
+        return view('frontend.index', compact('category', 'bannerproduct', 'featured', 'popular_product', 'trendy_product', 'home_category', 'brands', 'random_product','today_deal'));
     }
     public function productDetails($slug)
     {
