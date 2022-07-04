@@ -32,7 +32,7 @@ class ProductController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->editColumn('thumbnail', function ($row) use ($imgurl) {
-                    return '<img src="' . $imgurl . '/' . $row->thumbnail . '" width="50" height="50">';
+                    return '<img src="'.$imgurl .'/'.$row->thumbnail.'" width="50" height="50">';
                 })
                 ->editColumn('category_name', function ($row) {
                     return $row->category->category_name;

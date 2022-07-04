@@ -14,7 +14,7 @@ class IndexController extends Controller
     public function index()
     {
         $category = DB::table('categories')->get();
-        $brands = DB::table('brands')->where('front_page',1)->limit(12)->get();
+        $brands = DB::table('brands')->where('front_page',1)->limit(24)->get();
         $bannerproduct = Product::where('status', 1)->where('product_slider', 1)->latest()->first();
         $featured = Product::where('status', 1)->where('featured', 1)->orderBy('id', 'desc')->limit(5)->get();
         $popular_product = Product::where('status', 1)->orderBy('product_views', 'desc')->limit(5)->get();

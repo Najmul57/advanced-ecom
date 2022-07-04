@@ -27,7 +27,7 @@
                                 <span>{{ $setting->currency }}{{ $bannerproduct->selling_price }}</span>{{ $setting->currency }}{{ $bannerproduct->discount_price }}
                             </div>
                         @endif
-                        <div class="banner_product_name">{{ $bannerproduct->brand_id }}</div>
+                        <div class="banner_product_name">{{ $bannerproduct->brand->brand_name }}</div>
                         <div class="button banner_button"><a
                                 href="{{ route('product.details', $bannerproduct->slug) }}">Shop Now</a></div>
                     </div>
@@ -318,7 +318,8 @@
                                                     </div>
                                                     <div class="product_extras">
                                                         <div class="product_color">
-                                                            <a href="#" class="btn btn-primary" data-toggle="modal"
+                                                            <a href="#" id="{{ $item->id }}"
+                                                                class="quick_view" data-toggle="modal"
                                                                 data-target="#featured">Quick View</a>
                                                         </div>
                                                         <button class="product_cart_button">Add to Cart</button>

@@ -171,8 +171,9 @@
                                 <div class="button_container">
                                     <div class="btn-group" role="group" aria-label="Basic outlined example">
                                         <button type="submit" class="btn btn-primary mr-2">Add to cart</button>
-                                        <a href="{{ route('add.wishlist',$product->id) }}" type="button" class="btn btn-primary">Wishlist</a>
-                                      </div>
+                                        <a href="{{ route('add.wishlist', $product->id) }}" type="button"
+                                            class="btn btn-primary">Wishlist</a>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -219,36 +220,38 @@
                             <div class="row">
                                 <div class="col-3">
                                     Average Review of <strong>{{ $product->name }}</strong> <br>
-                                    @if (intval($sum_rating / $count_rating) == $count_rating)
-                                        <span><i class="fa fa-star checked"></i></span>
-                                        <span><i class="fa fa-star checked"></i></span>
-                                        <span><i class="fa fa-star checked"></i></span>
-                                        <span><i class="fa fa-star checked"></i></span>
-                                        <span><i class="fa fa-star checked"></i></span>
-                                    @elseif(intval($sum_rating / $count_rating) >= 4 && intval($sum_rating / $count_rating) < $count_rating)
-                                        <span><i class="fa fa-star checked"></i></span>
-                                        <span><i class="fa fa-star checked"></i></span>
-                                        <span><i class="fa fa-star checked"></i></span>
-                                        <span><i class="fa fa-star checked"></i></span>
-                                        <span><i class="fa fa-star"></i></span>
-                                    @elseif(intval($sum_rating / $count_rating) >= 3 && intval($sum_rating / $count_rating) < 4)
-                                        <span><i class="fa fa-star checked"></i></span>
-                                        <span><i class="fa fa-star checked"></i></span>
-                                        <span><i class="fa fa-star checked"></i></span>
-                                        <span><i class="fa fa-star"></i></span>
-                                        <span><i class="fa fa-star"></i></span>
-                                    @elseif(intval($sum_rating / $count_rating) >= 2 && intval($sum_rating / $count_rating) < 3)
-                                        <span><i class="fa fa-star checked"></i></span>
-                                        <span><i class="fa fa-star checked"></i></span>
-                                        <span><i class="fa fa-star"></i></span>
-                                        <span><i class="fa fa-star"></i></span>
-                                        <span><i class="fa fa-star"></i></span>
-                                    @else
-                                        <span><i class="fa fa-star checked"></i></span>
-                                        <span><i class="fa fa-star"></i></span>
-                                        <span><i class="fa fa-star"></i></span>
-                                        <span><i class="fa fa-star"></i></span>
-                                        <span><i class="fa fa-star"></i></span>
+                                    @if ($sum_rating != null)
+                                        @if (intval($sum_rating / $count_rating) == 5)
+                                            <span><i class="fa fa-star checked"></i></span>
+                                            <span><i class="fa fa-star checked"></i></span>
+                                            <span><i class="fa fa-star checked"></i></span>
+                                            <span><i class="fa fa-star checked"></i></span>
+                                            <span><i class="fa fa-star checked"></i></span>
+                                        @elseif(intval($sum_rating / $count_rating) >= 4 && intval($sum_rating / $count_rating) < $count_rating)
+                                            <span><i class="fa fa-star checked"></i></span>
+                                            <span><i class="fa fa-star checked"></i></span>
+                                            <span><i class="fa fa-star checked"></i></span>
+                                            <span><i class="fa fa-star checked"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                        @elseif(intval($sum_rating / $count_rating) >= 3 && intval($sum_rating / $count_rating) < 4)
+                                            <span><i class="fa fa-star checked"></i></span>
+                                            <span><i class="fa fa-star checked"></i></span>
+                                            <span><i class="fa fa-star checked"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                        @elseif(intval($sum_rating / $count_rating) >= 2 && intval($sum_rating / $count_rating) < 3)
+                                            <span><i class="fa fa-star checked"></i></span>
+                                            <span><i class="fa fa-star checked"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                        @else
+                                            <span><i class="fa fa-star checked"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                        @endif
                                     @endif
                                 </div>
                                 <div class="col-3">
