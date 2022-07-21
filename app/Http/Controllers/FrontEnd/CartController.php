@@ -58,5 +58,42 @@ class CartController extends Controller
 
         }
     }
-}
+    public function mycart()
+    {
+        $content=Cart::content();
+        return view('frontend.cart.cart',compact('content'));
+    }
 
+    public function removeproduct($rowId)
+    {
+        Cart::remove($rowId);
+        return response()->json('Success');
+    }
+    public function updateqty($rowId,$qty)
+    {
+        Cart::update($rowId,['qty'=>$qty]);
+        return response()->json('Successfully Updated');
+    }
+    public function updatecolor($rowId,$color)
+    {
+        $product=Cart::get($rowId);
+        $thumbnail=$product->options->thumbnail;
+        $size=$product->options->size;
+        Cart::update($rowId,['options'=>['color'=>$color,'thumbnail'=>$thumbnail,'size'=>$size]]);
+        return response()->json('Successfully Updated');
+    }
+    public function updatesize($rowId,$size)
+    {
+        $product=Cart::get($rowId);
+        $thumbnail=$product->options->thumbnail;
+        $color=$product->options->color;
+        Cart::update($rowId,['options'=>['size'=>$size,'thumbnail'=>$thumbnail,'color'=>$color]]);
+        return response()->json('Successfully Updated');
+    }
+    public function cartempty()
+    {
+        Cart::destroy();
+        $notification = array('messege' => 'Cart item clear!', 'alert-type' => 'success');
+        return redirect()->to('/')->with($notification);
+    }
+}

@@ -21,7 +21,13 @@ Route::group(['namespace' => 'App\Http\Controllers\FrontEnd'], function () {
     Route::get('product_quick_view/{id}', [IndexController::class, 'product_quick_view']);
 
     Route::get('all-cart',[CartController::class,'allCart'])->name('all.cart');
+    Route::get('/my-cart',[CartController::class,'mycart'])->name('cart');
     Route::post('add-to-cart',[CartController::class,'add_to_cart_quickview'])->name('add.to.cart.quickview');
+    Route::get('/cartproduct/remove/{rowId}',[CartController::class,'removeproduct']);
+    Route::get('/cartproduct/updateqty/{rowId}/{qty}',[CartController::class,'updateqty']);
+    Route::get('/cartproduct/updatecolor/{rowId}/{color}',[CartController::class,'updatecolor']);
+    Route::get('/cartproduct/updatesize/{rowId}/{size}',[CartController::class,'updatesize']);
+    Route::get('/cart/empty',[CartController::class,'cartempty'])->name('cart.empty');
     // wishlist
     Route::get('add/wishlist/{id}', [CartController::class, 'wishlist'])->name('add.wishlist');
 
