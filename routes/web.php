@@ -31,5 +31,14 @@ Route::group(['namespace' => 'App\Http\Controllers\FrontEnd'], function () {
     // wishlist
     Route::get('add/wishlist/{id}', [CartController::class, 'wishlist'])->name('add.wishlist');
 
+
+    Route::get('category/product/{id}',[IndexController::class,'categoryWiseProduct'])->name('categorywise.product');
+    Route::get('subcategory/product/{id}',[IndexController::class,'subcategoryWiseProduct'])->name('subcategorywise.product');
+    Route::get('childcategory/product/{id}',[IndexController::class,'childcategoryWiseProduct'])->name('childcategorywise.product');
+    Route::get('brandwise/product/{id}',[IndexController::class,'brandWiseProduct'])->name('brandwise.product');
+
+
     Route::post('review/store', [ReviewController::class, 'store'])->name('store.review');
+    Route::get('write/review', [ReviewController::class, 'writereview'])->name('write.review');
+    Route::post('store/website/review', [ReviewController::class, 'storewebsitereview'])->name('store.website.review');
 });

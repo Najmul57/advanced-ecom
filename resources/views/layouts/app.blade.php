@@ -344,7 +344,7 @@
     <script src="{{ asset('backend/plugins/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('frontend') }}/js/custom.js"></script>
     <script src="{{ asset('frontend') }}/js/product_custom.js"></script>
-
+    
 
     <script>
         function cart() {

@@ -39,5 +39,26 @@ class ReviewController extends Controller
         $notification = array('messege' => 'Thank you for review', 'alert-type' => 'success');
         return redirect()->back()->with($notification);
     }
-
+    public function writereview()
+    {
+        return view('user.review_wirte');
+    }
+    public function storewebsitereview(Request $request)
+    {
+        $check=DB::table('wbreviews')->where('user_id',Auth::id())->first();
+        if($check){
+            $notification = array('messege' => 'Review Already Exits', 'alert-type' => 'success');
+            return redirect()->back()->with($notification);
+        }
+        $data = array();
+        $data['user_id'] = Auth::id();
+        $data['name'] = $request->name;
+        $data['review'] = $request->review;
+        $data['rating'] = $request->rating;
+        $data['review_date'] = date('d-m-Y');
+        $data['status'] = $request->status;
+        DB::table('wbreviews')->insert($data);
+        $notification = array('messege' => 'Thank you for review', 'alert-type' => 'success');
+        return redirect()->back()->with($notification);
+    }
 }
